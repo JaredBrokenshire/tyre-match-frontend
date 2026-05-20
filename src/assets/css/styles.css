@@ -1,0 +1,155 @@
+@import "tailwindcss";
+
+/* START: Colours */
+@theme {
+    --color-primary: #8b5cf6;
+    --color-primary-light: #c4b5fd;
+    --color-primary-dark: #6d28d9;
+    --color-link: #006eff;
+    --color-link-light: #c6e1ff;
+    --color-link-dark: #0a00b8;
+    --color-danger: #c10000;
+    --color-danger-light: #cd3737;
+    --color-danger-dark: #920000;
+    --color-success: #54b23b;
+    --color-success-light: #8cda79;
+    --color-success-dark: #3b7f2a;
+    --color-gray: #828282;
+    --color-gray-light: #a2acb2;
+    --color-gray-dark: #595959;
+}
+/* END: Colours */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    font-family: "IM Fell English", serif;
+}
+
+/* START: Text Styles */
+html {
+    font-size: 16px;
+}
+
+h1 {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold;
+}
+
+h2 {
+    @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold;
+}
+
+h3 {
+    @apply text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold;
+}
+
+h4 {
+    @apply text-base sm:text-lg md:text-xl lg:text-2xl font-semibold;
+}
+
+h5 {
+    @apply text-sm sm:text-base md:text-lg lg:text-xl font-medium;
+}
+
+h6 {
+    @apply text-xs sm:text-sm md:text-base lg:text-lg font-medium;
+}
+
+/* END: Text Styles */
+
+/* START: General Styles */
+.flex-between {
+    @apply flex justify-between items-center
+}
+
+.flex-center {
+    @apply flex justify-center items-center
+}
+
+.padding-x {
+    @apply sm:px-16 px-6;
+}
+
+.transition-200 {
+    @apply transition-all duration-200 ease-in-out;
+}
+
+/*  END: General Styles */
+
+/* START: Link Styles */
+.link {
+    @apply transition-all text-link hover:text-link-dark
+}
+
+.nav-link {
+    @apply relative w-fit transition-all py-2 rounded-lg hover:text-primary
+}
+
+.nav-link::before {
+    @apply content-[''] absolute transition-all bg-primary bottom-0 left-1/2 w-0 h-[2px]
+}
+
+.nav-link:hover::before {
+    @apply w-full left-0
+}
+
+.nav-link.active {
+    @apply text-primary;
+}
+
+.nav-link.active::before {
+    @apply w-full left-0
+}
+
+/* END: Link Styles */
+
+/* START: Button Styles */
+.btn {
+    @apply transition-all duration-200 w-full flex justify-center items-center px-4 py-2 text-white font-medium rounded-md shadow-sm cursor-pointer focus:outline-none disabled:opacity-50 disabled:cursor-default
+}
+
+/* END: Button Styles */
+
+/* START: Form Styles */
+label {
+    @apply block text-sm
+}
+
+input,
+textarea {
+    @apply w-full
+}
+
+input {
+    @apply max-h-[36px]
+}
+
+/* Hide number input spinners in all browsers */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+}
+
+
+.step-button {
+    @apply border border-gray-light rounded-md enabled:hover:bg-gray-light w-1/4 aspect-square transition-all cursor-pointer max-h-[36px] disabled:text-gray
+}
+
+/* END: Form Styles */
+
+/* START: Animations */
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.2s ease-in-out;
+}
+
+.fade-enter, .fade-leave-to {
+    opacity: 0;
+}
+
+/* END: Animations */
