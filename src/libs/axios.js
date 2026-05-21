@@ -4,7 +4,7 @@ import Vue from 'vue'
 import axios from 'axios'
 
 const axiosIns = axios.create({
-  withCredentials: true,
+  withCredentials: false,
   baseURL: 'http://api.localtyrematch.com:7788'
 })
 

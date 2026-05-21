@@ -8,6 +8,7 @@
 ### Changed
 
 - Updated primary colour in src/assets/css/styles.css
+- Fixed axios requests to no longer require credentials
 
 ## v0.0.1 20/05/2026
 
