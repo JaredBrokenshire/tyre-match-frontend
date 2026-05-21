@@ -3,6 +3,7 @@
 ### Added
 
 - Added card and modal ui components
+- Added text input and data table ui components
 
 ### Changed
 
