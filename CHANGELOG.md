@@ -3,6 +3,7 @@
 ### [Added]
 
 - Added tyre impression list view
+- Added VeeValidate for form validation with custom rules
 
 ### [Changed]
 
