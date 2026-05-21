@@ -1,5 +1,9 @@
 ## v0.0.3 `DATE`
 
+### [Added]
+
+- Added tyre impression list view
+
 ### [Changed]
 
 - Changed styling on subheadings in changelog

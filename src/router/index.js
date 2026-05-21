@@ -1,5 +1,6 @@
 import VueRouter from 'vue-router'
 import tyreModels from "@/router/routes/tyreModels";
+import tyreImpressions from "@/router/routes/tyreImpressions";
 
 const router = new VueRouter({
   mode: 'history',
@@ -11,6 +12,7 @@ const router = new VueRouter({
       component: () => import('@/views/home/Home.vue'),
     },
     ...tyreModels,
+    ...tyreImpressions,
     {
       path: '/error-404',
       name: 'error-404',

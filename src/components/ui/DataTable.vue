@@ -57,7 +57,7 @@
     <!-- Pagination -->
     <div class="flex items-center justify-between px-6 py-4 border-t bg-gray-50">
       <p class="text-sm text-gray-600">
-        Page <span class="font-medium">{{ currentPage }}</span>
+        Page <span class="font-medium">{{ totalPages > 0 ? currentPage : 0 }}</span>
         of <span class="font-medium">{{ totalPages }}</span>
       </p>
 

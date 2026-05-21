@@ -22,9 +22,15 @@
       </router-link>
       <router-link
         :class="`nav-link md:mx-4 ${activeLink === 'tyre-models' && 'active'}`"
-        :to="{name: 'tyre-models'}"
+        :to="{name: 'tyre-model-list'}"
       >
         <h5>Tyre Models</h5>
+      </router-link>
+      <router-link
+        :class="`nav-link md:mx-4 ${activeLink === 'tyre-impressions' && 'active'}`"
+        :to="{name: 'tyre-impression-list'}"
+      >
+        <h5>Impressions</h5>
       </router-link>
     </div>
   </div>
