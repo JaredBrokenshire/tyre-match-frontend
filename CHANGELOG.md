@@ -4,6 +4,10 @@
 
 - Added card and modal ui components
 
+### Changed
+
+- Updated primary colour in src/assets/css/styles.css
+
 ## v0.0.1 20/05/2026
 
 ### Added
