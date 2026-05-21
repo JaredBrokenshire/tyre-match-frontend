@@ -1,5 +1,9 @@
 ## v0.0.2 `DATE`
 
+### Added
+
+- Added card and modal ui components
+
 ## v0.0.1 20/05/2026
 
 ### Added
