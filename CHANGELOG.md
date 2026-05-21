@@ -1,6 +1,12 @@
+## v0.0.3 `DATE`
+
+### [Changed]
+
+- Changed styling on subheadings in changelog
+
 ## v0.0.2 21/05/2026
 
-### Added
+### [Added]
 
 - Added card and modal ui components
 - Added text input and data table ui components
@@ -8,14 +14,14 @@
 - Added helper service with utility functions for sending and receiving api requests
 - Added tyre models list view with data table
 
-### Changed
+### [Changed]
 
 - Updated primary colour in src/assets/css/styles.css
 - Fixed axios requests to no longer require credentials
 
 ## v0.0.1 20/05/2026
 
-### Added
+### [Added]
 
 - Setup Vue2 project structure with tailwindcss and eslint
 - Added vue-router for page navigation
