@@ -6,6 +6,7 @@
 - Added text input and data table ui components
 - Added toastification plugin for toast messages
 - Added helper service with utility functions for sending and receiving api requests
+- Added tyre models list view with data table
 
 ### Changed
 
