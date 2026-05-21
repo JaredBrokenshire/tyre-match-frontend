@@ -4,6 +4,7 @@
 
 - Added tyre impression list view
 - Added VeeValidate for form validation with custom rules
+- Added validated file input form component
 
 ### [Changed]
 
