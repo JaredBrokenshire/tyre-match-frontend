@@ -18,7 +18,7 @@
         </div>
       </div>
     </card>
-    
+
     <card class="mb-4">
       <div class="flex flex-col md:flex-row justify-between md:items-end gap-2">
         <div class="grow md:max-w-1/2 xl:max-w-1/3">
@@ -68,10 +68,11 @@
   import CButton from "@/components/ui/CustomButton.vue";
   import TextInput from "@/components/forms/TextInput.vue";
   import TyreModelService from "@/services/TyreModelService";
+  import CreateTyreModelModal from "@/views/tyre_models/sections/CreateTyreModelModal.vue";
 
   export default {
     name: "TyreModelList",
-    components: {DataTable, TextInput, Modal, Card, CButton},
+    components: {CreateTyreModelModal, DataTable, TextInput, Modal, Card, CButton},
     data() {
       return {
         loading: false,
@@ -135,6 +136,8 @@
       },
       closeModals() {
         this.showCreateTyreModelModal = false;
+
+        this.clearFilters()
       },
       onSearchInput() {
         this.filters.page = 1
