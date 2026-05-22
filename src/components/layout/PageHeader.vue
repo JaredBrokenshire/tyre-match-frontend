@@ -21,13 +21,13 @@
         <h5>Home</h5>
       </router-link>
       <router-link
-        :class="`nav-link md:mx-4 ${activeLink === 'tyre-models' && 'active'}`"
+        :class="`nav-link md:mx-4 ${activeLink === 'tyre-model-list' && 'active'}`"
         :to="{name: 'tyre-model-list'}"
       >
         <h5>Tyre Models</h5>
       </router-link>
       <router-link
-        :class="`nav-link md:mx-4 ${activeLink === 'tyre-impressions' && 'active'}`"
+        :class="`nav-link md:mx-4 ${activeLink === 'tyre-impression-list' && 'active'}`"
         :to="{name: 'tyre-impression-list'}"
       >
         <h5>Impressions</h5>

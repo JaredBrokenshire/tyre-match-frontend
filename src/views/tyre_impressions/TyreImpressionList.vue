@@ -40,7 +40,7 @@
     <modal
       id="modal-upload-tyre-impression"
       :visible="showUploadTyreImpressionModal"
-      size="sm"
+      size="md"
       title="Upload Tyre Impression"
       @close="closeModals"
     >
@@ -56,10 +56,11 @@
   import DataTable from "@/components/ui/DataTable.vue";
   import CButton from "@/components/ui/CustomButton.vue";
   import TyreImpressionService from "@/services/TyreImpressionService";
+  import UploadTyreImpressionModal from "@/views/tyre_impressions/sections/UploadTyreImpressionModal.vue";
 
   export default {
     name: "TyreImpressionList",
-    components: {DataTable, Modal, Card, CButton},
+    components: {UploadTyreImpressionModal, DataTable, Modal, Card, CButton},
     data() {
       return {
         loading: false,
@@ -118,6 +119,8 @@
       },
       closeModals() {
         this.showUploadTyreImpressionModal = false;
+
+        this.clearFilters();
       },
     }
   }
