@@ -3,6 +3,7 @@
 ### [Changed]
 
 - Fixed incorrect placeholder in create tyre model modal
+- Fixed vertical padding for no data display in data table
 
 ## v0.0.3 22/05/2026
 

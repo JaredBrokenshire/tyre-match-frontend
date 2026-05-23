@@ -45,7 +45,7 @@
           <tr v-if="$props.data.length === 0">
             <td
               :colspan="columns.length"
-              class="text-center py-10 text-sm text-gray-400"
+              class="text-center py-2 text-sm text-gray-400"
             >
               No data available
             </td>
