@@ -1,4 +1,8 @@
-## v0.0.4 `DATE`
+## v0.1.0 23/05/2026
+
+### [Changed]
+
+- Fixed incorrect placeholder in create tyre model modal
 
 ## v0.0.3 22/05/2026
 
