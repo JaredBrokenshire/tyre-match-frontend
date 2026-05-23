@@ -1,4 +1,8 @@
-## v0.1.0 23/05/2026
+## v0.0.4 23/05/2026
+
+### [Added]
+
+- Added tyre model details page
 
 ### [Changed]
 

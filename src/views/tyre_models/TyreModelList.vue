@@ -42,7 +42,7 @@
       :current-page="currentPage"
       :data="tyreModels"
       :page-size="filters.page_size"
-      :row-link="(row) => `/tyre-models/${row.id}`"
+      :row-link="(row) => `/tyre-model/${row.id}`"
       :total-count="totalCount"
       @change-page="getMoreTyreModels"
     />

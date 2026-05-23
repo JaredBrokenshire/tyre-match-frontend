@@ -24,7 +24,7 @@
           <tr
             v-for="(row, rowIndex) in $props.data"
             :key="rowIndex"
-            class="hover:bg-gray-50 transition cursor-pointer"
+            class="hover:bg-gray-100 transition-200 cursor-pointer"
             @click="goToRow(row)"
           >
             <td

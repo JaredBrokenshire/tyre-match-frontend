@@ -8,6 +8,9 @@ export default {
     const queryString = HelperService.buildSearchQueryString(filters)
     return axios.get(`${baseURL}${queryString}`)
   },
+  get(id) {
+    return axios.get(`${baseURL}/${id}`)
+  },
   create(dto) {
     return axios.post(`${baseURL}`, dto)
   }
