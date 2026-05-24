@@ -34,6 +34,8 @@ git clone https://github.com/JaredBrokenshire/tyre-match-frontend
 cd tyre-match-frontend
 ```
 
+Copy `.env.dist` to new `.env` file.
+
 ---
 
 ### 2. Configure Hosts File
