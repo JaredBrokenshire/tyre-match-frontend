@@ -1,3 +1,9 @@
+## v0.0.5 24/05/2026
+
+## [Changed]
+
+- Updated README.md to include project details and host file changes
+
 ## v0.0.4 23/05/2026
 
 ### [Added]
