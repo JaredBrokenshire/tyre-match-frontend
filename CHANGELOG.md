@@ -1,5 +1,11 @@
 ## v0.0.5 24/05/2026
 
+## [Added]
+
+- Added tyre model update modal
+- Added update and delete methods to the tyre model service
+- Added generic delete modal
+
 ## [Changed]
 
 - Updated README.md to include project details and host file changes

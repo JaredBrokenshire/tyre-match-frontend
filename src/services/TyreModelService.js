@@ -13,5 +13,11 @@ export default {
   },
   create(dto) {
     return axios.post(`${baseURL}`, dto)
+  },
+  update(id, dto) {
+    return axios.patch(`${baseURL}/${id}`, dto)
+  },
+  delete(id) {
+    return axios.delete(`${baseURL}/${id}`)
   }
 }

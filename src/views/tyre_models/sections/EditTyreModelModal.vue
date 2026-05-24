@@ -3,7 +3,7 @@
     ref="observer"
     v-slot="{ handleSubmit, invalid }"
   >
-    <form @submit.prevent="handleSubmit(createTyreModel)">
+    <form @submit.prevent="handleSubmit(updateTyreModel)">
       <div class="flex gap-4 mb-4">
         <section class="w-1/2">
           <label>Manufacturer *</label>
@@ -13,7 +13,7 @@
             name="Manufacturer"
           >
             <text-input
-              v-model="newTyreModel.manufacturer"
+              v-model="updatedTyreModel.manufacturer"
               :invalid="!!validationContext.errors[0]"
               placeholder="Enter manufacturer"
             />
@@ -29,7 +29,7 @@
             name="Model Name"
           >
             <text-input
-              v-model="newTyreModel.model_name"
+              v-model="updatedTyreModel.model_name"
               :invalid="!!validationContext.errors[0]"
               placeholder="Enter model name"
             />
@@ -47,7 +47,7 @@
             name="Category"
           >
             <dropdown
-              v-model="newTyreModel.category"
+              v-model="updatedTyreModel.category"
               :invalid="!!validationContext.errors[0]"
               :options="categoryOptions"
               placeholder="Select category"
@@ -64,7 +64,7 @@
             name="Vehicle Type"
           >
             <dropdown
-              v-model="newTyreModel.vehicle_type"
+              v-model="updatedTyreModel.vehicle_type"
               :invalid="!!validationContext.errors[0]"
               :options="vehicleTypeOptions"
               placeholder="Select vehicle type"
@@ -82,7 +82,7 @@
             name="Width (mm)"
           >
             <number-input
-              v-model="newTyreModel.width_mm"
+              v-model="updatedTyreModel.width_mm"
               :invalid="!!validationContext.errors[0]"
               :min="0"
               placeholder="Enter width (mm)"
@@ -98,7 +98,7 @@
             name="Aspect Ratio"
           >
             <number-input
-              v-model="newTyreModel.aspect_ratio"
+              v-model="updatedTyreModel.aspect_ratio"
               :invalid="!!validationContext.errors[0]"
               :max="100"
               :min="0"
@@ -117,7 +117,7 @@
             name="Rim Diameter (in)"
           >
             <number-input
-              v-model="newTyreModel.rim_diameter_inches"
+              v-model="updatedTyreModel.rim_diameter_inches"
               :invalid="!!validationContext.errors[0]"
               :min="0"
               placeholder="Enter rim diameter (in)"
@@ -133,7 +133,7 @@
             name="Groove Count"
           >
             <number-input
-              v-model="newTyreModel.groove_count"
+              v-model="updatedTyreModel.groove_count"
               :invalid="!!validationContext.errors[0]"
               :min="0"
               placeholder="Enter groove count"
@@ -151,7 +151,7 @@
             name="Pattern Type"
           >
             <dropdown
-              v-model="newTyreModel.pattern_type"
+              v-model="updatedTyreModel.pattern_type"
               :invalid="!!validationContext.errors[0]"
               :options="patternTypeOptions"
               placeholder="Select pattern type"
@@ -167,7 +167,7 @@
             name="Tread Pitch Length (mm)"
           >
             <number-input
-              v-model="newTyreModel.tread_pitch_length_mm"
+              v-model="updatedTyreModel.tread_pitch_length_mm"
               :invalid="!!validationContext.errors[0]"
               :min="0"
               placeholder="Enter tread pitch length (mm)"
@@ -184,7 +184,7 @@
           name="Dataset Source"
         >
           <text-input
-            v-model="newTyreModel.dataset_source"
+            v-model="updatedTyreModel.dataset_source"
             :invalid="!!validationContext.errors[0]"
             :rows="3"
             placeholder="Enter dataset source"
@@ -200,7 +200,7 @@
           name="Notes"
         >
           <text-input
-            v-model="newTyreModel.notes"
+            v-model="updatedTyreModel.notes"
             :invalid="!!validationContext.errors[0]"
             :rows="3"
             placeholder="Enter notes"
@@ -221,7 +221,7 @@
           type="submit"
           variant="primary"
         >
-          Create
+          Update
         </c-button>
       </div>
     </form>
@@ -229,20 +229,24 @@
 </template>
 
 <script>
-  import HelperService from "@/services/HelperService";
   import CButton from "@/components/ui/CustomButton.vue";
   import Dropdown from "@/components/forms/Dropdown.vue";
   import TextInput from "@/components/forms/TextInput.vue";
-  import TyreModelService from "@/services/TyreModelService";
   import NumberInput from "@/components/forms/NumberInput.vue";
 
   export default {
-    name: "CreateTyreModelModal",
+    name: "EditTyreModelModal",
     components: {NumberInput, Dropdown, CButton, TextInput},
+    props: {
+      existing: {
+        type: Object,
+        required: true,
+      }
+    },
     data() {
       return {
         loading: false,
-        newTyreModel: {
+        updatedTyreModel: {
           manufacturer: "",
           model_name: "",
           category: "",
@@ -281,28 +285,12 @@
         ],
       }
     },
+    mounted() {
+      this.updatedTyreModel = {...this.$props.existing};
+    },
     methods: {
-      async createTyreModel() {
-        this.loading = true;
-        try {
-          const dto = {...this.newTyreModel};
-
-          await TyreModelService.create(dto)
-          
-          HelperService.successToast(this.$toast, "Tyre Model created successfully")
-          this.$emit("close")
-        } catch (err) {
-          const res = err.response;
-          let errorText = "Could not create tyre model, please refresh and try again";
-
-          if (res && res.data.error) {
-            errorText = res.data.error;
-          }
-
-          HelperService.errorToast(this.$toast, err, errorText)
-        } finally {
-          this.loading = false;
-        }
+      async updateTyreModel() {
+        this.$emit("update", this.updatedTyreModel);
       }
     }
   }

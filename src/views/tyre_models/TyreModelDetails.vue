@@ -18,16 +18,15 @@
             class="flex flex-col gap-4"
             title="Actions"
           >
-            <!-- TODO: Functionality for these buttons -->
             <c-button
-              :disabled="true"
+              :disabled="loading"
               variant="primary"
               @click="showUpdateModal = true"
             >
               Update
             </c-button>
             <c-button
-              :disabled="true"
+              :disabled="loading"
               variant="danger"
               @click="showDeleteModal = true"
             >
@@ -79,6 +78,22 @@
           </div>
         </card>
       </div>
+
+      <card
+        v-if="tyreModel.dataset_source !== ''"
+        class="mb-4 whitespace-pre-wrap"
+        title="Dataset Source"
+      >
+        <div>{{ tyreModel.dataset_source }}</div>
+      </card>
+
+      <card
+        v-if="tyreModel.notes !== ''"
+        class="mb-4 whitespace-pre-wrap"
+        title="Notes"
+      >
+        <div>{{ tyreModel.notes }}</div>
+      </card>
     </div>
 
     <modal
@@ -117,10 +132,12 @@
   import HelperService from "@/services/HelperService";
   import CButton from "@/components/ui/CustomButton.vue";
   import TyreModelService from "@/services/TyreModelService";
+  import EditTyreModelModal from "@/views/tyre_models/sections/EditTyreModelModal.vue";
+  import DeleteModal from "@/components/modals/DeleteModal.vue";
 
   export default {
     name: "TyreModelDetails",
-    components: {Modal, CButton, Card},
+    components: {DeleteModal, EditTyreModelModal, Modal, CButton, Card},
     data() {
       return {
         tyreModel: null,
@@ -154,22 +171,9 @@
       async updateTyreModel(updatedTyreModel) {
         this.loading = true;
         try {
-          const dto = {
-            manufacturer: updatedTyreModel.manufacturer,
-            model_name: updatedTyreModel.model_name,
-            category: updatedTyreModel.category,
-            vehicle_type: updatedTyreModel.vehicle_type,
-            width_mm: updatedTyreModel.width_mm,
-            aspect_ratio: updatedTyreModel.aspect_ratio,
-            rim_diameter_inches: updatedTyreModel.rim_diameter_inches,
-            groove_count: updatedTyreModel.groove_count,
-            pattern_type: updatedTyreModel.pattern_type,
-            tread_pitch_length_mm: updatedTyreModel.tread_pitch_length_mm,
-            dataset_source: updatedTyreModel.dataset_source,
-            notes: updatedTyreModel.notes,
-          }
+          const dto = {...updatedTyreModel};
 
-          const res = await TyreModelService.update(this.classType.id, dto)
+          const res = await TyreModelService.update(this.tyreModel.id, dto)
           this.tyreModel = res.data;
 
           HelperService.successToast(this.$toast, "Tyre model updated successfully")
