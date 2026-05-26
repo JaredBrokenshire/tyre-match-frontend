@@ -35,7 +35,18 @@
       :row-link="(row) => `/tyre-impressions/${row.id}`"
       :total-count="totalCount"
       @change-page="getMoreTyreImpressions"
-    />
+    >
+      <template #status="{ row }">
+        {{ row.status?.charAt(0).toUpperCase() + row.status?.slice(1) }}
+      </template>
+      <template #created_at="{ row }">
+        {{
+          row.created_at
+            ? `${new Date(row.created_at).toLocaleTimeString("en-GB")} ${new Date(row.created_at).toLocaleDateString("en-GB")}`
+            : ''
+        }}
+      </template>
+    </data-table>
 
     <modal
       id="modal-upload-tyre-impression"

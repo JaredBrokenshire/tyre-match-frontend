@@ -1,3 +1,9 @@
+## v0.0.6 `DATE`
+
+## [Changed]
+
+- Changed formatting of data in tyre impression list view to capitalise status and display date and time correctly
+
 ## v0.0.5 24/05/2026
 
 ## [Added]
