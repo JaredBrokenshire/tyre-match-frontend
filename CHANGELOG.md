@@ -1,18 +1,23 @@
 ## v0.0.6 `DATE`
 
-## [Changed]
+### [Added]
+
+- Added file service for retrieving images to display on the frontend
+- Added tyre impression details page, displaying all stages of the preprocessing pipeline
+
+### [Changed]
 
 - Changed formatting of data in tyre impression list view to capitalise status and display date and time correctly
 
 ## v0.0.5 24/05/2026
 
-## [Added]
+### [Added]
 
 - Added tyre model update modal
 - Added update and delete methods to the tyre model service
 - Added generic delete modal
 
-## [Changed]
+### [Changed]
 
 - Updated README.md to include project details and host file changes
 

@@ -32,7 +32,7 @@
       :current-page="currentPage"
       :data="tyreImpressions"
       :page-size="filters.page_size"
-      :row-link="(row) => `/tyre-impressions/${row.id}`"
+      :row-link="(row) => `/tyre-impression/${row.id}`"
       :total-count="totalCount"
       @change-page="getMoreTyreImpressions"
     >
