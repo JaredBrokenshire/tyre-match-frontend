@@ -11,7 +11,7 @@
       Back to Tyre Models
     </router-link>
 
-    <div v-if="tyreModel">
+    <div v-if="tyreModel && !loading">
       <div class="flex flex-col lg:flex-row-reverse gap-4">
         <div class="grow lg:w-1/4">
           <card
@@ -24,6 +24,13 @@
               @click="showUpdateModal = true"
             >
               Update
+            </c-button>
+            <c-button
+              :disabled="loading"
+              variant="primary"
+              @click="showUploadImageModal = true"
+            >
+              Upload Image
             </c-button>
             <c-button
               :disabled="loading"
@@ -94,6 +101,20 @@
       >
         <div>{{ tyreModel.notes }}</div>
       </card>
+
+      <card
+        v-if="tyreModel.files"
+        class="mb-4 whitespace-pre-wrap"
+        title="Images"
+      >
+        <div class="grid-3 mb-4 lg:mb-8">
+          <image-display
+            v-for="file in tyreModel.files"
+            :key="`tyre-model-image-${file.id}`"
+            :file="file"
+          />
+        </div>
+      </card>
     </div>
 
     <modal
@@ -107,6 +128,20 @@
         :existing="tyreModel"
         @close="closeModals"
         @update="updateTyreModel"
+      />
+    </modal>
+
+    <modal
+      id="modal-upload-tyre-model-image"
+      :visible="showUploadImageModal"
+      size="sm"
+      title="Upload Tyre Model Image"
+      @close="closeModals"
+    >
+      <upload-tyre-model-image-modal
+        :tyre-model="tyreModel"
+        @close="closeModals"
+        @upload="uploadImage"
       />
     </modal>
 
@@ -132,17 +167,20 @@
   import HelperService from "@/services/HelperService";
   import CButton from "@/components/ui/CustomButton.vue";
   import TyreModelService from "@/services/TyreModelService";
-  import EditTyreModelModal from "@/views/tyre_models/sections/EditTyreModelModal.vue";
   import DeleteModal from "@/components/modals/DeleteModal.vue";
+  import ImageDisplay from "@/components/ui/ImageDisplay.vue";
+  import EditTyreModelModal from "@/views/tyre_models/sections/EditTyreModelModal.vue";
+  import UploadTyreModelImageModal from "@/views/tyre_models/sections/UploadTyreModelImageModal.vue";
 
   export default {
     name: "TyreModelDetails",
-    components: {DeleteModal, EditTyreModelModal, Modal, CButton, Card},
+    components: {UploadTyreModelImageModal, ImageDisplay, DeleteModal, EditTyreModelModal, Modal, CButton, Card},
     data() {
       return {
         tyreModel: null,
         loading: false,
         showUpdateModal: false,
+        showUploadImageModal: false,
         showDeleteModal: false,
       }
     },
@@ -191,6 +229,25 @@
           this.loading = false;
         }
       },
+      async uploadImage(image) {
+        this.loading = true
+        try {
+          const res = await TyreModelService.uploadImage(this.tyreModel.id, image)
+          this.tyreModel = res.data;
+        } catch (err) {
+          const res = err.response;
+          let errorText = "Could not upload tyre model image, please refresh and try again";
+
+          if (res && res.data.error) {
+            errorText = res.data.error;
+          }
+
+          HelperService.errorToast(this.$toast, err, errorText)
+        } finally {
+          this.loading = false;
+          this.closeModals()
+        }
+      },
       async deleteTyreModel() {
         this.loading = true;
         try {
@@ -213,6 +270,7 @@
       },
       closeModals() {
         this.showUpdateModal = false;
+        this.showUploadImageModal = false;
         this.showDeleteModal = false;
       },
     }

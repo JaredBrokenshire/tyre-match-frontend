@@ -1,5 +1,10 @@
 ## v0.0.7 `DATE`
 
+### [Added]
+
+- Added image displays to tyre model details page
+- Added upload image button for tyre models
+
 ## v0.0.6 06/06/2026
 
 ### [Added]

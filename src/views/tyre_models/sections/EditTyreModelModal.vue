@@ -159,22 +159,6 @@
             <small class="text-danger">{{ validationContext.errors[0] }}</small>
           </validation-provider>
         </section>
-
-        <section class="w-1/2">
-          <label>Tread Pitch Length (mm)</label>
-          <validation-provider
-            v-slot="validationContext"
-            name="Tread Pitch Length (mm)"
-          >
-            <number-input
-              v-model="updatedTyreModel.tread_pitch_length_mm"
-              :invalid="!!validationContext.errors[0]"
-              :min="0"
-              placeholder="Enter tread pitch length (mm)"
-            />
-            <small class="text-danger">{{ validationContext.errors[0] }}</small>
-          </validation-provider>
-        </section>
       </div>
 
       <section class="mb-4">
@@ -256,7 +240,6 @@
           rim_diameter_inches: 0,
           groove_count: 0,
           pattern_type: "",
-          tread_pitch_length_mm: 0,
           dataset_source: "",
           notes: "",
         },

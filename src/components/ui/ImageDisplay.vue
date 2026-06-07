@@ -1,10 +1,11 @@
 <template>
   <div
     v-if="!loading && imageURL"
-    class="flex flex-col flex-center gap-4"
+    class="flex flex-col flex-center gap-4 lg:gap-8"
   >
-    <h6>{{ file.file_type.toUpperCase() }}</h6>
+    <h6 v-if="$props.showTitle">{{ file.file_type.toUpperCase() }}</h6>
     <img
+      :class="`${!$props.showTitle && 'mt-8'}`"
       :src="imageURL"
       alt=""
     >
@@ -22,6 +23,10 @@
         type: Object,
         required: true
       },
+      showTitle: {
+        type: Boolean,
+        default: false
+      }
     },
     data() {
       return {

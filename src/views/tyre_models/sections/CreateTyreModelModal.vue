@@ -161,16 +161,16 @@
         </section>
 
         <section class="w-1/2">
-          <label>Tread Pitch Length (mm)</label>
+          <label>Image</label>
           <validation-provider
             v-slot="validationContext"
-            name="Tread Pitch Length (mm)"
+            :rules="{ isImageFile }"
+            name="Background Image"
           >
-            <number-input
-              v-model="newTyreModel.tread_pitch_length_mm"
+            <file-input
+              v-model="image"
               :invalid="!!validationContext.errors[0]"
-              :min="0"
-              placeholder="Enter tread pitch length (mm)"
+              placeholder="Browse files"
             />
             <small class="text-danger">{{ validationContext.errors[0] }}</small>
           </validation-provider>
@@ -233,12 +233,14 @@
   import CButton from "@/components/ui/CustomButton.vue";
   import Dropdown from "@/components/forms/Dropdown.vue";
   import TextInput from "@/components/forms/TextInput.vue";
+  import FileInput from "@/components/forms/FileInput.vue";
   import TyreModelService from "@/services/TyreModelService";
   import NumberInput from "@/components/forms/NumberInput.vue";
+  import {isImageFile} from "@/@core/utils/validations/validations";
 
   export default {
     name: "CreateTyreModelModal",
-    components: {NumberInput, Dropdown, CButton, TextInput},
+    components: {FileInput, NumberInput, Dropdown, CButton, TextInput},
     data() {
       return {
         loading: false,
@@ -252,10 +254,10 @@
           rim_diameter_inches: 0,
           groove_count: 0,
           pattern_type: "",
-          tread_pitch_length_mm: 0,
           dataset_source: "",
           notes: "",
         },
+        image: null,
         categoryOptions: [
           {label: "All-Season", value: "All Season"},
           {label: "Summer", value: "Summer"},
@@ -281,14 +283,23 @@
         ],
       }
     },
+    computed: {
+      isImageFile() {
+        return isImageFile
+      }
+    },
     methods: {
       async createTyreModel() {
         this.loading = true;
         try {
           const dto = {...this.newTyreModel};
 
-          await TyreModelService.create(dto)
-          
+          const res = await TyreModelService.create(dto)
+
+          if (this.image) {
+            await TyreModelService.uploadImage(res.data.id, this.image)
+          }
+
           HelperService.successToast(this.$toast, "Tyre Model created successfully")
           this.$emit("close")
         } catch (err) {

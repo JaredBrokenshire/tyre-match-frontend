@@ -47,7 +47,7 @@
           </div>
         </card>
       </div>
-      
+
       <card
         v-if="tyreImpression.processing.files"
         class="mb-4 whitespace-pre-wrap"
@@ -58,6 +58,7 @@
             v-for="file in files"
             :key="`tyre-impression-image-${file.file_type}`"
             :file="file"
+            :show-title="true"
           />
         </div>
       </card>
@@ -86,7 +87,7 @@
   import CButton from "@/components/ui/CustomButton.vue";
   import DeleteModal from "@/components/modals/DeleteModal.vue";
   import TyreImpressionService from "@/services/TyreImpressionService";
-  import ImageDisplay from "@/views/tyre_impressions/sections/ImageDisplay.vue";
+  import ImageDisplay from "@/components/ui/ImageDisplay.vue";
 
   export default {
     name: "TyreModelDetails",
