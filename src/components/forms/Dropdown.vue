@@ -5,7 +5,7 @@
       @click="toggle"
     >
       <div
-        :class="`${selectedLabel ? 'text-black' : 'text-gray text-sm'}`"
+        :class="`${selectedLabel ? 'text-black text-sm' : 'text-gray text-sm'}`"
         class="truncate"
       >
         {{ selectedLabel || placeholder }}

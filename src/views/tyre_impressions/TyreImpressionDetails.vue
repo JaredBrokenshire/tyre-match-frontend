@@ -49,7 +49,7 @@
       </div>
 
       <card
-        v-if="tyreImpression.processing.files"
+        v-if="tyreImpression.files"
         class="mb-4 whitespace-pre-wrap"
         title="Files"
       >
@@ -115,10 +115,10 @@
           const res = await TyreImpressionService.get(this.$route.params.id);
           this.tyreImpression = res.data;
 
-          if (this.tyreImpression.processing.files) {
+          if (this.tyreImpression.files) {
             this.files = this.fileOrder
-              .filter(type => this.tyreImpression.processing.files[type])
-              .map(type => this.tyreImpression.processing.files[type]);
+              .filter(type => this.tyreImpression.files[type])
+              .map(type => this.tyreImpression.files[type]);
           }
         } catch (err) {
           const res = err.response;

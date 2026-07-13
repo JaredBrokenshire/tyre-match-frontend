@@ -4,6 +4,7 @@
 
 - Added image displays to tyre model details page
 - Added upload image button for tyre models
+- Added PPI resolution calculator for tyre impression image uploads
 
 ## v0.0.6 06/06/2026
 

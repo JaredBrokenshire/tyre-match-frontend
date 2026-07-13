@@ -51,7 +51,7 @@
     <modal
       id="modal-upload-tyre-impression"
       :visible="showUploadTyreImpressionModal"
-      size="md"
+      size="lg"
       title="Upload Tyre Impression"
       @close="closeModals"
     >
