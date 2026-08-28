@@ -41,7 +41,7 @@
       async getImage() {
         this.loading = true
         try {
-          const res = await FileService.get(this.$props.file.id);
+          const res = await FileService.get(`${this.$props.file.location}/${this.$props.file.name}`);
           this.imageURL = URL.createObjectURL(res.data);
         } catch (err) {
           const res = err.response;

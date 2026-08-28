@@ -1,4 +1,8 @@
-## v0.1.1 `DATE`
+## v0.2.0 `28/08/2026`
+
+### [Changed]
+
+- Updated most pages and services to reflect new Go backend api signature
 
 ## v0.1.0 13/07/2026
 

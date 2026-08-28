@@ -3,8 +3,10 @@
     ref="observer"
     v-slot="{ handleSubmit, invalid }"
   >
-    <form @submit.prevent="handleSubmit(uploadTyreImpressionImage)">
-      <section class="mb-4">
+    <form @submit.prevent="handleSubmit(createTyreImpression)">
+      <section
+        class="mb-4"
+      >
         <label>Tyre Impression Image</label>
         <validation-provider
           v-slot="validationContext"
@@ -22,28 +24,30 @@
 
       <section
         v-if="imagePreviewUrl"
-        class="mb-4"
+        class="mb-4 flex justify-between gap-4"
       >
-        <label>
-          Reference Points
-        </label>
-        <small class="text-muted d-block">
-          Click two points on the image that correspond to a known real-world distance.
-        </small>
+        <div>
+          <label>
+            Reference Points
+          </label>
+          <small class="text-muted d-block">
+            Click two points on the image that correspond to a known real-world distance.
+          </small>
 
-        <reference-point-picker
-          v-model="referencePoints"
-          :src="imagePreviewUrl"
-        />
+          <reference-point-picker
+            v-model="referencePoints"
+            :src="imagePreviewUrl"
+          />
+        </div>
 
-        <div class="w-1/4 mt-2">
+        <div class="min-w-1/4 mt-auto">
           <c-button
             v-if="referencePoints.length"
             @click="referencePoints = []"
           >
             Reset Points
           </c-button>
-          <small class="text-muted">
+          <small class="">
             {{ referencePoints.length }}/2 points selected
           </small>
         </div>
@@ -55,7 +59,7 @@
       >
         <label>Real World Distance Between Points</label>
         <distance-calibration-input
-          v-model="pixelsPerInch"
+          v-model="newTyreImpression.pixels_per_inch"
           :pixel-distance="pixelDistance"
         />
       </section>
@@ -67,6 +71,7 @@
         >
           Cancel
         </c-button>
+
         <c-button
           :disabled="invalid || loading || !canSubmit"
           type="submit"
@@ -89,7 +94,7 @@
   import DistanceCalibrationInput from "@/components/forms/DistanceCalibrationInput.vue";
 
   export default {
-    name: "UploadTyreImpressionModal",
+    name: "CreateTyreImpressionModal",
     components: {CButton, FileInput, ReferencePointPicker, DistanceCalibrationInput},
     data() {
       return {
@@ -99,7 +104,9 @@
         referencePoints: [],
         realWorldDistance: 0,
         distanceUnit: "mm",
-        pixelsPerInch: 0
+        newTyreImpression: {
+          pixels_per_inch: 0,
+        }
       }
     },
     computed: {
@@ -114,8 +121,8 @@
       },
       canSubmit() {
         return this.referencePoints.length === 2
-          && this.pixelsPerInch > 0
-          && this.pixelsPerInch < Infinity
+          && this.newTyreImpression.pixels_per_inch > 0
+          && this.newTyreImpression.pixels_per_inch < Infinity
       },
     },
     watch: {
@@ -136,26 +143,29 @@
       }
     },
     methods: {
-      async uploadTyreImpressionImage() {
+      async createTyreImpression() {
         this.loading = true
         try {
-          const res = await TyreImpressionService.create({
-            pixels_per_inch: this.pixelsPerInch,
-          })
+          const dto = {...this.newTyreImpression}
 
-          await TyreImpressionService.upload(res.data.id, this.tyreImpressionImage)
+          const res = await TyreImpressionService.create(dto)
+
+          if (this.tyreImpressionImage) {
+            await TyreImpressionService.upload(res.data.id, this.tyreImpressionImage)
+          }
 
           HelperService.successToast(this.$toast, "Tyre Impression uploaded successfully")
           this.$emit("close")
         } catch (err) {
           const res = err.response;
-          let errorText = "Could not upload tyre impression, please refresh and try again";
+          let errorText = "Could not create tyre impression, please refresh and try again";
 
           if (res && res.data.error) {
             errorText = res.data.error;
           }
 
           HelperService.errorToast(this.$toast, err, errorText)
+          this.$emit("close")
         } finally {
           this.loading = false;
         }

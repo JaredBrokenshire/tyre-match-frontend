@@ -21,8 +21,18 @@
 
         <!-- Body -->
         <tbody class="bg-white divide-y divide-gray-100">
+          <tr v-if="!$props.data">
+            <td
+              :colspan="columns.length"
+              class="text-center py-2 text-sm text-gray-400"
+            >
+              No data available
+            </td>
+          </tr>
+
           <tr
             v-for="(row, rowIndex) in $props.data"
+            v-else
             :key="rowIndex"
             class="hover:bg-gray-100 transition-200 cursor-pointer"
             @click="goToRow(row)"
@@ -41,15 +51,6 @@
               </slot>
             </td>
           </tr>
-
-          <tr v-if="$props.data.length === 0">
-            <td
-              :colspan="columns.length"
-              class="text-center py-2 text-sm text-gray-400"
-            >
-              No data available
-            </td>
-          </tr>
         </tbody>
       </table>
     </div>
@@ -64,7 +65,7 @@
       <div class="flex gap-2">
         <button
           :disabled="currentPage === 1"
-          class="px-3 py-1 text-sm rounded-md border bg-white hover:bg-gray-100 disabled:opacity-50"
+          class="transition-200 px-3 py-1 text-sm rounded-md border bg-white enabled:hover:bg-gray-100 disabled:opacity-50"
           @click="changePage(currentPage - 1)"
         >
           Prev
@@ -72,7 +73,7 @@
 
         <button
           :disabled="currentPage === totalPages"
-          class="px-3 py-1 text-sm rounded-md border bg-white hover:bg-gray-100 disabled:opacity-50"
+          class="transition-200 px-3 py-1 text-sm rounded-md border bg-white enabled:hover:bg-gray-100 disabled:opacity-50"
           @click="changePage(currentPage + 1)"
         >
           Next
@@ -93,7 +94,8 @@
       },
       data: {
         type: Array,
-        required: true
+        required: false,
+        default: () => [],
       },
       pageSize: {
         type: Number,

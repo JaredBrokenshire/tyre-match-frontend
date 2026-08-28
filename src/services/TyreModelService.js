@@ -14,18 +14,18 @@ export default {
   create(dto) {
     return axios.post(`${baseURL}`, dto)
   },
+  update(id, dto) {
+    return axios.put(`${baseURL}/${id}`, dto)
+  },
   uploadImage(id, file) {
     const formData = new FormData()
     formData.append('file', file)
 
-    return axios.post(`${baseURL}/${id}/upload`, formData, {
+    return axios.post(`${baseURL}/${id}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       }
     })
-  },
-  update(id, dto) {
-    return axios.patch(`${baseURL}/${id}`, dto)
   },
   delete(id) {
     return axios.delete(`${baseURL}/${id}`)

@@ -87,31 +87,16 @@
       </div>
 
       <card
-        v-if="tyreModel.dataset_source !== ''"
-        class="mb-4 whitespace-pre-wrap"
-        title="Dataset Source"
-      >
-        <div>{{ tyreModel.dataset_source }}</div>
-      </card>
-
-      <card
-        v-if="tyreModel.notes !== ''"
-        class="mb-4 whitespace-pre-wrap"
-        title="Notes"
-      >
-        <div>{{ tyreModel.notes }}</div>
-      </card>
-
-      <card
-        v-if="tyreModel.files"
+        v-if="tyreModel.images"
         class="mb-4 whitespace-pre-wrap"
         title="Images"
       >
         <div class="grid-3 mb-4 lg:mb-8">
           <image-display
-            v-for="file in tyreModel.files"
-            :key="`tyre-model-image-${file.id}`"
-            :file="file"
+            v-for="image in images"
+            :key="`tyre-model-image-${image.file_type}`"
+            :file="image"
+            :show-title="true"
           />
         </div>
       </card>
@@ -178,6 +163,10 @@
     data() {
       return {
         tyreModel: null,
+        images: [],
+        fileOrder: [
+          "original",
+        ],
         loading: false,
         showUpdateModal: false,
         showUploadImageModal: false,
@@ -193,6 +182,12 @@
         try {
           const res = await TyreModelService.get(this.$route.params.id);
           this.tyreModel = res.data;
+
+          if (this.tyreModel.images) {
+            this.images = this.fileOrder
+              .filter(type => this.tyreModel.images[type])
+              .map(type => this.tyreModel.images[type]);
+          }
         } catch (err) {
           const res = err.response;
           let errorText = "Could not get tyre model, please refresh and try again";

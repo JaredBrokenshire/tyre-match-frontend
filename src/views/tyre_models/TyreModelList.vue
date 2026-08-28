@@ -80,7 +80,7 @@
         currentPage: 1,
         totalCount: 0,
         filters: {
-          page: 1,
+          page: 0,
           page_size: 20,
           search: "",
         },
@@ -102,7 +102,7 @@
     methods: {
       getMoreTyreModels(page) {
         this.currentPage = page;
-        this.filters.page = page;
+        this.filters.page = page - 1;
         this.getTyreModels()
       },
       async getTyreModels() {
@@ -110,8 +110,9 @@
         try {
           const res = await TyreModelService.list(this.filters)
           this.tyreModels = res.data.data
-          this.filters.page = this.currentPage
-          this.totalCount = res.data.total_count
+          this.filters.page = res.data.meta.page
+          this.filters.page_size = res.data.meta.page_size
+          this.totalCount = res.data.meta.total_count
         } catch (err) {
           const res = err.response
           let errorText = "Could not get tyre models, please refresh and try again";

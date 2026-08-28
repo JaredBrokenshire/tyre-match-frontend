@@ -161,38 +161,6 @@
         </section>
       </div>
 
-      <section class="mb-4">
-        <label>Dataset Source</label>
-        <validation-provider
-          v-slot="validationContext"
-          name="Dataset Source"
-        >
-          <text-input
-            v-model="updatedTyreModel.dataset_source"
-            :invalid="!!validationContext.errors[0]"
-            :rows="3"
-            placeholder="Enter dataset source"
-          />
-          <small class="text-danger">{{ validationContext.errors[0] }}</small>
-        </validation-provider>
-      </section>
-
-      <section class="mb-4">
-        <label>Notes</label>
-        <validation-provider
-          v-slot="validationContext"
-          name="Notes"
-        >
-          <text-input
-            v-model="updatedTyreModel.notes"
-            :invalid="!!validationContext.errors[0]"
-            :rows="3"
-            placeholder="Enter notes"
-          />
-          <small class="text-danger">{{ validationContext.errors[0] }}</small>
-        </validation-provider>
-      </section>
-
       <div class="float-right flex gap-2 mt-2">
         <c-button
           class="mr-2"
@@ -240,8 +208,6 @@
           rim_diameter_inches: 0,
           groove_count: 0,
           pattern_type: "",
-          dataset_source: "",
-          notes: "",
         },
         categoryOptions: [
           {label: "All-Season", value: "All Season"},

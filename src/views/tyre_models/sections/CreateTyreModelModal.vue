@@ -160,54 +160,8 @@
           </validation-provider>
         </section>
 
-        <section class="w-1/2">
-          <label>Image</label>
-          <validation-provider
-            v-slot="validationContext"
-            :rules="{ isImageFile }"
-            name="Background Image"
-          >
-            <file-input
-              v-model="image"
-              :invalid="!!validationContext.errors[0]"
-              placeholder="Browse files"
-            />
-            <small class="text-danger">{{ validationContext.errors[0] }}</small>
-          </validation-provider>
-        </section>
+
       </div>
-
-      <section class="mb-4">
-        <label>Dataset Source</label>
-        <validation-provider
-          v-slot="validationContext"
-          name="Dataset Source"
-        >
-          <text-input
-            v-model="newTyreModel.dataset_source"
-            :invalid="!!validationContext.errors[0]"
-            :rows="3"
-            placeholder="Enter dataset source"
-          />
-          <small class="text-danger">{{ validationContext.errors[0] }}</small>
-        </validation-provider>
-      </section>
-
-      <section class="mb-4">
-        <label>Notes</label>
-        <validation-provider
-          v-slot="validationContext"
-          name="Notes"
-        >
-          <text-input
-            v-model="newTyreModel.notes"
-            :invalid="!!validationContext.errors[0]"
-            :rows="3"
-            placeholder="Enter notes"
-          />
-          <small class="text-danger">{{ validationContext.errors[0] }}</small>
-        </validation-provider>
-      </section>
 
       <div class="float-right flex gap-2 mt-2">
         <c-button
@@ -233,14 +187,13 @@
   import CButton from "@/components/ui/CustomButton.vue";
   import Dropdown from "@/components/forms/Dropdown.vue";
   import TextInput from "@/components/forms/TextInput.vue";
-  import FileInput from "@/components/forms/FileInput.vue";
   import TyreModelService from "@/services/TyreModelService";
   import NumberInput from "@/components/forms/NumberInput.vue";
   import {isImageFile} from "@/@core/utils/validations/validations";
 
   export default {
     name: "CreateTyreModelModal",
-    components: {FileInput, NumberInput, Dropdown, CButton, TextInput},
+    components: {NumberInput, Dropdown, CButton, TextInput},
     data() {
       return {
         loading: false,
@@ -254,8 +207,6 @@
           rim_diameter_inches: 0,
           groove_count: 0,
           pattern_type: "",
-          dataset_source: "",
-          notes: "",
         },
         image: null,
         categoryOptions: [

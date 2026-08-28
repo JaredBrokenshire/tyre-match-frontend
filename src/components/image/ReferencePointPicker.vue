@@ -1,6 +1,6 @@
 <template>
   <div class="reference-point-picker">
-    <div class="rpp-image-wrapper">
+    <div class="rpp-canvas">
       <img
         ref="image"
         :src="src"
@@ -11,6 +11,8 @@
         @mouseleave="handleMouseLeave"
         @mousemove="handleMouseMove"
       >
+
+      {{ displayWidth }} {{ displayHeight }}
       <svg
         v-if="displayWidth"
         :height="displayHeight"
@@ -196,28 +198,26 @@
 </script>
 
 <style scoped>
-.rpp-image-wrapper {
-  position: relative;
-  display: inline-block;
-  justify-content: center;
-  max-width: 100%;
-}
-
-.rpp-image {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  cursor: crosshair;
-  user-select: none;
-  border: 1px solid #dee2e6;
-}
 
 .rpp-overlay {
   position: absolute;
   top: 0;
   left: 0;
   pointer-events: none;
+}
+
+/*
+ * The SVG and magnifier use image-relative coordinates.  Giving their shared
+ * wrapper a positioning context keeps those coordinates aligned with the
+ * displayed image rather than an ancestor elsewhere on the page.
+ */
+.rpp-canvas {
+  position: relative;
+  display: inline-block;
+}
+
+.rpp-image {
+  display: block;
 }
 
 .rpp-point {

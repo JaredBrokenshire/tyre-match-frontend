@@ -55,7 +55,7 @@
       title="Upload Tyre Impression"
       @close="closeModals"
     >
-      <upload-tyre-impression-modal @close="closeModals" />
+      <create-tyre-impression-modal @close="closeModals" />
     </modal>
   </div>
 </template>
@@ -67,11 +67,11 @@
   import DataTable from "@/components/ui/DataTable.vue";
   import CButton from "@/components/ui/CustomButton.vue";
   import TyreImpressionService from "@/services/TyreImpressionService";
-  import UploadTyreImpressionModal from "@/views/tyre_impressions/sections/UploadTyreImpressionModal.vue";
+  import CreateTyreImpressionModal from "@/views/tyre_impressions/sections/CreateTyreImpressionModal.vue";
 
   export default {
     name: "TyreImpressionList",
-    components: {UploadTyreImpressionModal, DataTable, Modal, Card, CButton},
+    components: {CreateTyreImpressionModal, DataTable, Modal, Card, CButton},
     data() {
       return {
         loading: false,
@@ -79,15 +79,15 @@
         currentPage: 1,
         totalCount: 0,
         filters: {
-          page: 1,
+          page: 0,
           page_size: 20,
         },
         showUploadTyreImpressionModal: false,
         columnHeaders: [
           {label: "ID", field: "id", width: "10%"},
-          {label: "UUID", field: "uuid", width: "30%"},
           {label: "Status", field: "status", width: "30%"},
           {label: "Uploaded At", field: "created_at", width: "30%"},
+          {label: "Updated At", field: "updated_at", width: "30%"},
         ],
       }
     },
@@ -97,7 +97,7 @@
     methods: {
       getMoreTyreImpressions(page) {
         this.currentPage = page;
-        this.filters.page = page;
+        this.filters.page = page - 1;
         this.getTyreImpressions()
       },
       async getTyreImpressions() {
@@ -105,8 +105,9 @@
         try {
           const res = await TyreImpressionService.list(this.filters)
           this.tyreImpressions = res.data.data
-          this.filters.page = this.currentPage
-          this.totalCount = res.data.total_count
+          this.filters.page = res.data.meta.page
+          this.filters.page_size = res.data.meta.page_size
+          this.totalCount = res.data.meta.total_count
         } catch (err) {
           const res = err.response
           let errorText = "Could not get tyre impressions, please refresh and try again";

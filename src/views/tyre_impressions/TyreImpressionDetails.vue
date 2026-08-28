@@ -35,12 +35,12 @@
             <div class="grow self-start">
               <div class="text-sm sm:text-lg">
                 <div class="flex gap-4">
-                  <div class="font-bold grow md:max-w-1/3 lg:max-w-1/4">UUID:</div>
-                  <div>{{ tyreImpression.uuid }}</div>
+                  <div class="font-bold grow md:max-w-1/3 lg:max-w-1/4">Pixels Per Inch:</div>
+                  <div>{{ tyreImpression.pixels_per_inch }} px / in</div>
                 </div>
                 <div class="flex gap-4">
                   <div class="font-bold grow md:max-w-1/3 lg:max-w-1/4">Status:</div>
-                  <div>{{ tyreImpression.status }}</div>
+                  <div class="first-letter:uppercase">{{ tyreImpression.status }}</div>
                 </div>
               </div>
             </div>
@@ -49,15 +49,15 @@
       </div>
 
       <card
-        v-if="tyreImpression.files"
+        v-if="tyreImpression.images"
         class="mb-4 whitespace-pre-wrap"
-        title="Files"
+        title="Images"
       >
         <div class="grid-3 mb-4 lg:mb-8">
           <image-display
-            v-for="file in files"
-            :key="`tyre-impression-image-${file.file_type}`"
-            :file="file"
+            v-for="image in images"
+            :key="`tyre-impression-image-${image.file_type}`"
+            :file="image"
             :show-title="true"
           />
         </div>
@@ -95,10 +95,9 @@
     data() {
       return {
         tyreImpression: null,
-        files: [],
+        images: [],
         fileOrder: [
           "original",
-          "normalised",
           "enhanced",
         ],
         loading: false,
@@ -115,11 +114,12 @@
           const res = await TyreImpressionService.get(this.$route.params.id);
           this.tyreImpression = res.data;
 
-          if (this.tyreImpression.files) {
-            this.files = this.fileOrder
-              .filter(type => this.tyreImpression.files[type])
-              .map(type => this.tyreImpression.files[type]);
+          if (this.tyreImpression.images) {
+            this.images = this.fileOrder
+              .filter(type => this.tyreImpression.images[type])
+              .map(type => this.tyreImpression.images[type]);
           }
+
         } catch (err) {
           const res = err.response;
           let errorText = "Could not get tyre impression, please refresh and try again";

@@ -11,11 +11,14 @@ export default {
   get(id) {
     return axios.get(`${baseURL}/${id}`)
   },
-  upload(file) {
+  create(dto) {
+    return axios.post(`${baseURL}`, dto)
+  },
+  upload(id, file) {
     const formData = new FormData();
     formData.append("file", file)
-    
-    return axios.post(`${baseURL}/upload`, formData, {
+
+    return axios.post(`${baseURL}/${id}`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       }
