@@ -101,6 +101,7 @@
           "normalised",
           "enhanced",
           'binary',
+          'clean',
         ],
         loading: false,
         showDeleteModal: false,
