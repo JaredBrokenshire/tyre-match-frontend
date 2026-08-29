@@ -99,6 +99,7 @@
         fileOrder: [
           "original",
           "enhanced",
+          'binary',
         ],
         loading: false,
         showDeleteModal: false,

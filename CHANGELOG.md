@@ -1,4 +1,10 @@
-## v0.2.0 `28/08/2026`
+## v0.2.1 `DATE`
+
+### [Added]
+
+- Added binary file type to tyre impression image display
+
+## v0.2.0 28/08/2026
 
 ### [Changed]
 
