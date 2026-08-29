@@ -98,6 +98,7 @@
         images: [],
         fileOrder: [
           "original",
+          "normalised",
           "enhanced",
           'binary',
         ],

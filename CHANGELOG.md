@@ -2,7 +2,7 @@
 
 ### [Added]
 
-- Added binary file type to tyre impression image display
+- Added binary and normalised file type to tyre impression image display
 
 ## v0.2.0 28/08/2026
 
