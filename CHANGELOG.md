@@ -1,8 +1,16 @@
 ## v0.2.1 `DATE`
 
+## v0.2.1 30/08/2026
+
 ### [Added]
 
 - Added binary, normalised and clean file type to tyre impression image display
+- Added region selection to the reference point picker
+- Added ROI parameters to the create tyre impression method
+
+### [Changed]
+
+- Updated the create tyre impression modal to a multi-step wizard for clarity
 
 ## v0.2.0 28/08/2026
 

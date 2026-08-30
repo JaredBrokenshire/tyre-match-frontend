@@ -12,20 +12,29 @@
         @mousemove="handleMouseMove"
       >
 
-      {{ displayWidth }} {{ displayHeight }}
       <svg
         v-if="displayWidth"
         :height="displayHeight"
         :width="displayWidth"
         class="rpp-overlay"
       >
+        <!-- Line mode: dashed line between two calibration points -->
         <line
-          v-if="displayPoints.length === 2"
+          v-if="mode === 'line' && displayPoints.length === 2"
           :x1="displayPoints[0].x"
           :x2="displayPoints[1].x"
           :y1="displayPoints[0].y"
           :y2="displayPoints[1].y"
           class="rpp-line"
+        />
+        <!-- Rect mode: axis-aligned bounding box between two corner points -->
+        <rect
+          v-if="mode === 'rect' && rectFromPoints"
+          :height="rectFromPoints.height"
+          :width="rectFromPoints.width"
+          :x="rectFromPoints.x"
+          :y="rectFromPoints.y"
+          class="rpp-rect"
         />
         <g
           v-for="(point, index) in displayPoints"
@@ -85,6 +94,13 @@
         type: Number,
         default: 2,
       },
+      // 'line' draws a dashed line between two points (PPI calibration).
+      // 'rect' draws a rectangle between two corner points (ROI bounding box).
+      mode: {
+        type: String,
+        default: 'line',
+        validator: v => ['line', 'rect'].includes(v),
+      },
       magnifierEnabled: {
         type: Boolean,
         default: true,
@@ -120,6 +136,18 @@
           x: point.x * scaleX,
           y: point.y * scaleY,
         }))
+      },
+      // Axis-aligned rectangle from the two corner points, in display coordinates.
+      rectFromPoints() {
+        if (this.displayPoints.length !== 2) return null
+
+        const [a, b] = this.displayPoints
+        return {
+          x: Math.min(a.x, b.x),
+          y: Math.min(a.y, b.y),
+          width: Math.abs(b.x - a.x),
+          height: Math.abs(b.y - a.y),
+        }
       },
     },
     watch: {
@@ -239,5 +267,12 @@
   stroke: #ff3b30;
   stroke-width: 2;
   stroke-dasharray: 6 4;
+}
+
+.rpp-rect {
+  fill: rgba(0, 122, 221, 0.08);
+  stroke: #007add;
+  stroke-width: 2;
+  stroke-dasharray: 8 4;
 }
 </style>
