@@ -57,14 +57,6 @@
                   <div>{{ tyreModel.model_name }}</div>
                 </div>
                 <div class="flex gap-4">
-                  <div class="font-bold grow md:max-w-1/3 lg:max-w-1/4">Category:</div>
-                  <div>{{ tyreModel.category }}</div>
-                </div>
-                <div class="flex gap-4">
-                  <div class="font-bold grow md:max-w-1/3 lg:max-w-1/4">Vehicle Type:</div>
-                  <div>{{ tyreModel.vehicle_type }}</div>
-                </div>
-                <div class="flex gap-4">
                   <div class="font-bold grow md:max-w-1/3 lg:max-w-1/4">Width:</div>
                   <div>{{ tyreModel.width_mm }} mm</div>
                 </div>
@@ -166,6 +158,10 @@
         images: [],
         fileOrder: [
           "original",
+          "normalised",
+          "enhanced",
+          'binary',
+          'clean',
         ],
         loading: false,
         showUpdateModal: false,

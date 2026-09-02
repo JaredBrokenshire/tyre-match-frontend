@@ -17,13 +17,13 @@ export default {
   update(id, dto) {
     return axios.put(`${baseURL}/${id}`, dto)
   },
-  uploadImage(id, file) {
-    const formData = new FormData()
-    formData.append('file', file)
+  upload(id, file) {
+    const formData = new FormData();
+    formData.append("file", file)
 
     return axios.post(`${baseURL}/${id}`, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
       }
     })
   },

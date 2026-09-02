@@ -1,5 +1,9 @@
 ## v0.2.1 `DATE`
 
+### [Added]
+
+- Added image upload wizard for tyre models and processing pipeline returns to the details page
+
 ## v0.2.1 30/08/2026
 
 ### [Added]

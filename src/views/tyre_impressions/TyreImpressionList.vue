@@ -46,6 +46,13 @@
             : ''
         }}
       </template>
+      <template #updated_at="{ row }">
+        {{
+          row.updated_at
+            ? `${new Date(row.updated_at).toLocaleTimeString("en-GB")} ${new Date(row.updated_at).toLocaleDateString("en-GB")}`
+            : ''
+        }}
+      </template>
     </data-table>
 
     <modal

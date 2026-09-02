@@ -45,12 +45,30 @@
       :row-link="(row) => `/tyre-model/${row.id}`"
       :total-count="totalCount"
       @change-page="getMoreTyreModels"
-    />
+    >
+      <template #status="{ row }">
+        {{ row.status?.charAt(0).toUpperCase() + row.status?.slice(1) }}
+      </template>
+      <template #created_at="{ row }">
+        {{
+          row.created_at
+            ? `${new Date(row.created_at).toLocaleTimeString("en-GB")} ${new Date(row.created_at).toLocaleDateString("en-GB")}`
+            : ''
+        }}
+      </template>
+      <template #updated_at="{ row }">
+        {{
+          row.updated_at
+            ? `${new Date(row.updated_at).toLocaleTimeString("en-GB")} ${new Date(row.updated_at).toLocaleDateString("en-GB")}`
+            : ''
+        }}
+      </template>
+    </data-table>
 
     <modal
       id="modal-create-tyre-model"
       :visible="showCreateTyreModelModal"
-      size="md"
+      size="lg"
       title="Create Tyre Model"
       @close="closeModals"
     >
@@ -86,11 +104,13 @@
         },
         showCreateTyreModelModal: false,
         columnHeaders: [
-          {label: "ID", field: "id", width: "5%"},
+          {label: "ID", field: "id", width: "10%"},
           {label: "Manufacturer", field: "manufacturer", width: "20%"},
           {label: "Model Name", field: "model_name", width: "20%"},
-          {label: "Category", field: "category", width: "20%"},
-          {label: "Vehicle Type", field: "vehicle_type", width: "20%"},
+          {label: "Status", field: "status", width: "20%"},
+
+          {label: "Uploaded At", field: "created_at", width: "15%"},
+          {label: "Updated At", field: "updated_at", width: "15%"},
         ],
         debouncedSearch: null,
       }
